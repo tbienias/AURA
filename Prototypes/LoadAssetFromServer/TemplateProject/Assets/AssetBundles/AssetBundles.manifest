@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 764317761
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: crate
+      Dependencies: {}
+    Info_1:
+      Name: barrel
+      Dependencies: {}
