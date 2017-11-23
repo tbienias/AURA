@@ -1,3 +1,7 @@
-# Prototype: *\<Name\>*
+# Prototype: *\<Object Gaze Movement\>*
 ## Brief description
-This prototype serves as a template for developers to get started quickly in terms of prototyping.
+Voice commands:
+position: reposition UI
+spawn: spawn a acube
+grab: grabs a cube -> you can move around with it
+drop: drops the cube in place
