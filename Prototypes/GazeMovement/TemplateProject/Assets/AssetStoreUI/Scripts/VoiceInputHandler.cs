@@ -1,17 +1,21 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
+using Assets.Hello.Scripts;
 using HoloToolkit.Unity.InputModule;
 using UnityEngine;
 
 public class VoiceInputHandler : MonoBehaviour, ISpeechHandler
 {
-
+    public CustomUiCaster Caster;
     private GazeInput gazeInput;
     private Canvas uiCanvas;
+    private GameObject debugWindow;
 
 	// Use this for initialization
 	void Start () {
-		gazeInput = GazeInput.Instance;	    
+		gazeInput = GazeInput.Instance;
+	    uiCanvas = GameObject.Find("UiCanvas").GetComponent<Canvas>();
+	    debugWindow = GameObject.Find("DebugEventLog");
 	}
 	
 	// Update is called once per frame
@@ -24,7 +28,7 @@ public class VoiceInputHandler : MonoBehaviour, ISpeechHandler
         switch (eventData.RecognizedText)
         {
             case "cube":
-                ObjectSpawner.spawnCube();
+                ObjectSpawner.Instance.spawnCube();
                 break;
         
             case "grab":
@@ -35,9 +39,12 @@ public class VoiceInputHandler : MonoBehaviour, ISpeechHandler
                 gazeInput.dropObject();
                 break;
         
-            case "position":
-                uiCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+            case "position":                
                 gazeInput.repositionCanvas(uiCanvas);
+                break;
+
+            case "debug":
+                gazeInput.repositionDebugWindow(debugWindow);
                 break;
         
             default:

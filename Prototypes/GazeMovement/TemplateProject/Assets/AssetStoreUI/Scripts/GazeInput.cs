@@ -68,6 +68,16 @@ public class GazeInput
         canvas.transform.rotation = Quaternion.LookRotation(canvas.transform.position - camera.transform.position);
     }
 
+    public void debugWindowRotation(GameObject debugWindow)
+    {
+        debugWindow.transform.rotation = Quaternion.LookRotation(debugWindow.transform.position - camera.transform.position);
+    }
+
+    public void repositionDebugWindow(GameObject debugWindow)
+    {
+        debugWindow.transform.position = (camera.transform.position + Camera.main.transform.forward * canvasDistance);
+    }
+
     public void setCamera(Camera cam)
     {
         camera = cam;
