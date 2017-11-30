@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,13 @@ public class AssetLoader : MonoBehaviour
     
     public GameObject buttonPrefab;
     public GameObject buttonContainer;
+    public uint openPage = 0;
+
+
+    public List<string> assetList;
+    public AssetManager _mgr;
+
+    public Boolean listLoadprogress;
 
     private void Awake()
     {
@@ -17,7 +25,13 @@ public class AssetLoader : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    List<string> assets = new List<string>{"Button1", "Button2"};
+        _mgr = GameObject.Find("Asset Manager").GetComponent<AssetManager>();
+
+	    listLoadprogress = false;
+	    _mgr.RequestAssetList(getAssetList);
+
+        
+        List<string> assets = new List<string>{"Button1", "Button2"};
 	    foreach (string asset in assets)
 	    {
 	        createNewButton(asset);
@@ -47,8 +61,16 @@ public class AssetLoader : MonoBehaviour
 
     public void nextPage()
     {
-        clearAssetContainer();
-        showAssets(new List<string>(){"a", "b"});
+        //clearAssetContainer();
+        //showAssets(new List<string>(){"a", "b"});
+        if (assetList.Count / 10 == openPage)
+        {
+            Debug.Log("Already highest page!");
+        }
+        else
+        {
+            openPage++;    
+        }
     }
 
     private void clearAssetContainer()
@@ -63,8 +85,22 @@ public class AssetLoader : MonoBehaviour
 
     public void prevPage()
     {
-        clearAssetContainer();
-        showAssets(new List<string>() { "a", "b", "c", "d" });
+        //clearAssetContainer();
+        //showAssets(new List<string>() { "a", "b", "c", "d" });
+        if (openPage == 0)
+        {
+            Debug.Log("First Page already open!");
+        }
+        else
+        {
+            openPage--;
+        }
+
     }
 
+    public void getAssetList(List<string> list)
+    {
+        assetList = list;
+        listLoadprogress = true;
+    }
 }
