@@ -23,18 +23,24 @@ public class GazeInput
 
     public void grabObject()
     {
-        if (!dragging)
+         if (!dragging)
         {
             RaycastHit hit;
+            Debug.Log("GRAB DETECTED" + dragging);
 
             Ray ray = new Ray(camera.transform.position, camera.transform.forward);
 
             if (Physics.Raycast(ray, out hit, rayCastMaxDistance))
             {
-                Debug.Log("Grabbing Obj" + objectToMove);
+                
 
                 objectToMove = hit.transform.gameObject;
+                Debug.Log("Grabbing Obj" + objectToMove);
                 dragging = true;
+            }
+            else
+            {
+                Debug.Log("No GameObj found");
             }
 
         }
@@ -81,6 +87,16 @@ public class GazeInput
     public void setCamera(Camera cam)
     {
         camera = cam;
+    }
+    public void dragPlease(GameObject obj)
+    {
+        if (!dragging)
+        {
+
+            objectToMove = obj;
+            dragging = true;
+           
+        }
     }
 
 }

@@ -96,7 +96,7 @@ public class AssetLoader : MonoBehaviour
     public void prevPage()
     {
         clearAssetContainer();
-        //showAssets(new List<string>() { "a", "b", "c", "d" });
+        showAssets();
         if (openPage == 0)
         {
             Debug.Log("First Page already open!");
@@ -110,7 +110,7 @@ public class AssetLoader : MonoBehaviour
 
     public void getAssetList(List<string> list)
     {
-        assetList = list;
+        assetList = list;   
         listLoadprogress = true;
         showAssets();
     }
@@ -120,9 +120,18 @@ public class AssetLoader : MonoBehaviour
         if (go != null)
         {
             GameObject cam = GameObject.Find("MixedRealityCamera");
-            Instantiate(go, (cam.transform.position + Camera.main.transform.forward * 2), cam.transform.rotation);
+            go.AddComponent<MeshCollider>();
+            GameObject ngo = Instantiate(go, (cam.transform.position + Camera.main.transform.forward * 2), cam.transform.rotation);
+            GameObject t = ngo.transform.GetChild(0).gameObject;
+            t.AddComponent<MeshCollider>();
+
+
             Debug.Log("Spawned ");
-        }
+            GameObject GI = GameObject.Find("GazeInput");
+
+            GazeInputHandler gih = GI.GetComponent<GazeInputHandler>();
+            gih.dragthispls(t);
+        }   
         else
         {
             Debug.Log("Game Object Null!");

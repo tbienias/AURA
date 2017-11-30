@@ -25,4 +25,10 @@ public class GazeInputHandler : MonoBehaviour
         gazeInput.debugWindowRotation(debugWindow);
 	}
 
+    public bool dragthispls(GameObject objToDrag)
+    {
+        gazeInput.dragPlease(objToDrag);
+            
+        return true;
+    }
 }
