@@ -40,12 +40,30 @@ public class AssetLoader : MonoBehaviour
 
     private void loadAssetFromServer(string assetName)
     {
+
+        _mgr.RequestAsset(assetName, assetloadfunc);
         Debug.Log(assetName);
     }
-
-    public void showAssets(List<string> assets)
+    public void clearAssetContainer()
     {
-        foreach (string asset in assets)
+        Button[] buttons = buttonContainer.GetComponentsInChildren<Button>();
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].onClick.RemoveAllListeners();
+            Destroy(buttons[i].gameObject);
+        }
+    }
+    public void showAssets()
+    {
+
+        clearAssetContainer();
+        uint lastIndexOfList = openPage * 10 + 9;
+        if (openPage * 10 + 9 > assetList.Count)
+        {
+            lastIndexOfList = (uint)assetList.Count ;
+        }
+        List<string> partAssetList = assetList.GetRange((int)openPage * 10, (int)lastIndexOfList);
+        foreach (string asset in partAssetList)
         {
             createNewButton(asset);
         }
@@ -73,19 +91,11 @@ public class AssetLoader : MonoBehaviour
         }
     }
 
-    private void clearAssetContainer()
-    {
-        Button[] buttons = buttonContainer.GetComponentsInChildren<Button>();
-        for (int i = 0; i < buttons.Length; i++)
-        {
-            buttons[i].onClick.RemoveAllListeners();
-            Destroy(buttons[i].gameObject);
-        }
-    }
+    
 
     public void prevPage()
     {
-        //clearAssetContainer();
+        clearAssetContainer();
         //showAssets(new List<string>() { "a", "b", "c", "d" });
         if (openPage == 0)
         {
@@ -95,12 +105,27 @@ public class AssetLoader : MonoBehaviour
         {
             openPage--;
         }
-
+           
     }
 
     public void getAssetList(List<string> list)
     {
         assetList = list;
         listLoadprogress = true;
+        showAssets();
+    }
+
+    public void assetloadfunc(GameObject go)
+    {
+        if (go != null)
+        {
+            GameObject cam = GameObject.Find("MixedRealityCamera");
+            Instantiate(go, (cam.transform.position + Camera.main.transform.forward * 2), cam.transform.rotation);
+            Debug.Log("Spawned ");
+        }
+        else
+        {
+            Debug.Log("Game Object Null!");
+        }
     }
 }
