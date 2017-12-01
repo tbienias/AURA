@@ -71,7 +71,7 @@ namespace HoloToolkit.Unity.InputModule
 
             for (var i = 0; i < Enum.GetNames(typeof(XboxControllerMappingTypes)).Length; i++)
             {
-                XboxControllerMapping.SetMapping((XboxControllerMappingTypes)i, mapping[i].Value);
+                  XboxControllerMapping.SetMapping((XboxControllerMappingTypes)i, mapping[i].Value);
             }
 
             previousForceActiveState = inputModule.forceModuleActive;
@@ -103,7 +103,6 @@ namespace HoloToolkit.Unity.InputModule
 
             // We will only register the first device we find.  Input is taken from joystick 1.
             if (gamePadInputDatas.Count != 1) { return; }
-
             controllerData.XboxLeftStickHorizontalAxis = Input.GetAxis(XboxControllerMapping.XboxLeftStickHorizontal);
             controllerData.XboxLeftStickVerticalAxis = Input.GetAxis(XboxControllerMapping.XboxLeftStickVertical);
             controllerData.XboxRightStickHorizontalAxis = Input.GetAxis(XboxControllerMapping.XboxRightStickHorizontal);

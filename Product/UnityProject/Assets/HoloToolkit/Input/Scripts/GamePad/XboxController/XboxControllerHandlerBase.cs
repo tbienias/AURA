@@ -16,6 +16,7 @@ namespace HoloToolkit.Unity.InputModule
 
         protected virtual void Start()
         {
+            
             if (IsGlobalListener)
             {
                 InputManager.Instance.AddGlobalListener(gameObject);
@@ -34,10 +35,22 @@ namespace HoloToolkit.Unity.InputModule
 
         public virtual void OnXboxAxisUpdate(XboxControllerEventData eventData)
         {
+
+
+
+            if (eventData.XboxA_Down)
+            {
+                GameObject GI = GameObject.Find("GazeInput");
+
+                GazeInputHandler gih = GI.GetComponent<GazeInputHandler>();
+                gih.toggleGrab();
+            }
+
         }
 
         protected static bool OnButton_Up(XboxControllerMappingTypes buttonType, XboxControllerEventData eventData)
         {
+            Debug.Log(buttonType);
             switch (buttonType)
             {
                 case XboxControllerMappingTypes.None:
@@ -69,6 +82,7 @@ namespace HoloToolkit.Unity.InputModule
 
         protected static bool OnButton_Pressed(XboxControllerMappingTypes buttonType, XboxControllerEventData eventData)
         {
+            Debug.Log(buttonType);
             switch (buttonType)
             {
                 case XboxControllerMappingTypes.None:
@@ -100,6 +114,7 @@ namespace HoloToolkit.Unity.InputModule
 
         protected static bool OnButton_Down(XboxControllerMappingTypes buttonType, XboxControllerEventData eventData)
         {
+            Debug.Log(buttonType);
             switch (buttonType)
             {
                 case XboxControllerMappingTypes.None:

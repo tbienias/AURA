@@ -21,6 +21,7 @@ public class GazeInput
     private float objectDistance = 2;
     private float canvasDistance = 2;
 
+
     public void grabObject()
     {
          if (!dragging)
@@ -96,6 +97,19 @@ public class GazeInput
             objectToMove = obj;
             dragging = true;
            
+        }
+    }
+    public void toggleGrab()
+    {
+        if (!dragging)
+        {
+
+            grabObject();
+
+        }
+        else
+        {
+            dropObject();
         }
     }
 

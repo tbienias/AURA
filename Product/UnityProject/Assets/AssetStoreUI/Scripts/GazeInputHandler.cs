@@ -31,4 +31,10 @@ public class GazeInputHandler : MonoBehaviour
             
         return true;
     }
+    public bool toggleGrab()
+    {
+        gazeInput.toggleGrab();
+
+        return true;
+    }
 }

@@ -281,11 +281,12 @@ namespace HoloToolkit.Unity.InputModule
 
         public void HandleEvent<T>(BaseEventData eventData, ExecuteEvents.EventFunction<T> eventHandler) where T : IEventSystemHandler
         {
+            
             if (!Instance.enabled || disabledRefCount > 0)
             {
                 return;
             }
-
+            
             Debug.Assert(!eventData.used);
 
             // Use focused object when OverrideFocusedObject is null.
@@ -842,6 +843,7 @@ namespace HoloToolkit.Unity.InputModule
 
         public void RaiseGamePadLost(IInputSource source, uint sourceId, string gamePadName)
         {
+            Debug.Log("SHit is happening");
             // Create input event
             gamePadEventData.Initialize(source, sourceId, gamePadName);
 
@@ -854,6 +856,7 @@ namespace HoloToolkit.Unity.InputModule
         private static readonly ExecuteEvents.EventFunction<IXboxControllerHandler> OnXboxAxisUpdateHandler =
             delegate (IXboxControllerHandler handler, BaseEventData eventData)
             {
+               
                 var casted = ExecuteEvents.ValidateEventData<XboxControllerEventData>(eventData);
                 handler.OnXboxAxisUpdate(casted);
             };
@@ -862,7 +865,7 @@ namespace HoloToolkit.Unity.InputModule
         {
             // Create input event
             xboxControllerEventData.Initialize(source, sourceId, inputData);
-
+            
             // Pass handler through HandleEvent to perform modal/fallback logic
             HandleEvent(xboxControllerEventData, OnXboxAxisUpdateHandler);
         }
