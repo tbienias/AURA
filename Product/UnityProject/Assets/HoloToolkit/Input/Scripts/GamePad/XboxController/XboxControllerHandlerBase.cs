@@ -36,38 +36,63 @@ namespace HoloToolkit.Unity.InputModule
         public virtual void OnXboxAxisUpdate(XboxControllerEventData eventData)
         {
 
+            GameObject GI = GameObject.Find("GazeInput");
 
-
+            GazeInputHandler gih = GI.GetComponent<GazeInputHandler>();
             if (eventData.XboxA_Down)
             {
-                GameObject GI = GameObject.Find("GazeInput");
-
-                GazeInputHandler gih = GI.GetComponent<GazeInputHandler>();
                 gih.toggleGrab();
             }
             
             if(eventData.XboxRightTriggerAxis != 0.0)
             {
-                Debug.Log(eventData.XboxRightTriggerAxis);
-                GameObject GI = GameObject.Find("GazeInput");
-
-                GazeInputHandler gih = GI.GetComponent<GazeInputHandler>();
                 gih.pushbackObj(eventData.XboxRightTriggerAxis);
             }
             if (eventData.XboxLeftTriggerAxis != 0.0)
             {
-                Debug.Log(eventData.XboxLeftTriggerAxis);
-                GameObject GI = GameObject.Find("GazeInput");
-
-                GazeInputHandler gih = GI.GetComponent<GazeInputHandler>();
+                
                 gih.pullbackObj(eventData.XboxLeftTriggerAxis);
             }
+
+
+            //ROTATE STUFF
+            if (eventData.XboxLeftStickVerticalAxis != 0)
+            {
+                gih.rotateX(eventData.XboxLeftStickVerticalAxis);
+            }
+            else
+            {
+                gih.rotateX(0f);
+            }
+            if (eventData.XboxLeftStickHorizontalAxis != 0)
+            {
+                gih.rotateY(eventData.XboxLeftStickHorizontalAxis * -1);
+            }
+            else
+            {
+                gih.rotateY(0f);
+            }
+
+            if (eventData.XboxLeftBumper_Pressed)
+            {
+                gih.rotateZ(1f);
+            }
+            
+            if (eventData.XboxRightBumper_Pressed)
+            {
+                gih.rotateZ(-1f);
+            }
+            if(eventData.XboxLeftBumper_Pressed ==false && eventData.XboxRightBumper_Pressed == false)
+            {
+                gih.rotateZ(0f);
+            }
+
 
         }
 
         protected static bool OnButton_Up(XboxControllerMappingTypes buttonType, XboxControllerEventData eventData)
         {
-            Debug.Log(buttonType);
+
             switch (buttonType)
             {
                 case XboxControllerMappingTypes.None:
@@ -99,7 +124,6 @@ namespace HoloToolkit.Unity.InputModule
 
         protected static bool OnButton_Pressed(XboxControllerMappingTypes buttonType, XboxControllerEventData eventData)
         {
-            Debug.Log(buttonType);
             switch (buttonType)
             {
                 case XboxControllerMappingTypes.None:
@@ -131,7 +155,6 @@ namespace HoloToolkit.Unity.InputModule
 
         protected static bool OnButton_Down(XboxControllerMappingTypes buttonType, XboxControllerEventData eventData)
         {
-            Debug.Log(buttonType);
             switch (buttonType)
             {
                 case XboxControllerMappingTypes.None:

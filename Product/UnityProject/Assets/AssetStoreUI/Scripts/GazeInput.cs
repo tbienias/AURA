@@ -23,6 +23,11 @@ public class GazeInput
     private float objectDistancemod = 0.0001f;
     private float canvasDistance = 2;
 
+    private float rotatex = 0.0f;
+    private float rotatey = 0.0f;
+    private float rotatez = 0.0f;
+
+    private float rotatemod = 1f;
 
     public void grabObject()
     {
@@ -35,8 +40,8 @@ public class GazeInput
 
             if (Physics.Raycast(ray, out hit, rayCastMaxDistance))
             {
-                
 
+                objectDistance = hit.distance;
                 objectToMove = hit.transform.gameObject;
                 Debug.Log("Grabbing Obj" + objectToMove);
                 dragging = true;
@@ -57,6 +62,9 @@ public class GazeInput
             Vector3 rayPoint = ray.GetPoint(objectDistance);
 
             objectToMove.transform.position = rayPoint;
+
+            objectToMove.transform.Rotate(new Vector3(rotatex, rotatey, rotatez), Space.World);
+            
         }
     }
 
@@ -65,6 +73,7 @@ public class GazeInput
         Debug.Log("Dropping object: " + objectToMove);
         dragging = false;
         objectToMove = null;
+        objectDistance = 2;
     }
 
     public void repositionCanvas(Canvas canvas)
@@ -117,10 +126,39 @@ public class GazeInput
 
     public void pushbackObj(float rate)
     {
-        objectDistance = objectDistance + ((float)Math.Pow(rate+1, 10)) * objectDistancemod;
+        float newdis = objectDistance + ((float)Math.Pow(rate + 1, 10)) * objectDistancemod;
+        if (newdis >= 10)
+        {
+            objectDistance = 10;
+        }
+        else
+        {
+            objectDistance = newdis;
+        }
     }
     public void pullbackObj(float rate)
     {
-        objectDistance = objectDistance - ((float)Math.Pow(rate+1, 10)) * objectDistancemod;
+      
+        objectDistance = objectDistance - ((float)Math.Pow(rate + 1, 10)) * objectDistancemod;
+        if (objectDistance < 0.5f)
+        {
+            objectDistance = 0.5f;
+        }
+    }
+
+    public void rotateX(float rate)
+    {
+        rotatex = rate * rotatemod;
+        
+    }
+    public void rotateY(float rate)
+    {
+        rotatey = rate * rotatemod;
+       
+    }
+    public void rotateZ(float rate)
+    {
+        rotatez = rate * rotatemod;
+
     }
 }

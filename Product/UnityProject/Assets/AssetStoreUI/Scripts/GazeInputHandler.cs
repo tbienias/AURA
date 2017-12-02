@@ -45,4 +45,16 @@ public class GazeInputHandler : MonoBehaviour
     {
         gazeInput.pullbackObj(rate);
     }
+    public void rotateX(float rate)
+    {
+        gazeInput.rotateX(rate);
+    }
+    public void rotateY(float rate)
+    {
+        gazeInput.rotateY(rate);
+    }
+    public void rotateZ(float rate)
+    {
+        gazeInput.rotateZ(rate);
+    }
 }
