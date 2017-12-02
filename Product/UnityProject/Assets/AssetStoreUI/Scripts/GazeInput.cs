@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GazeInput
 {
@@ -19,6 +20,7 @@ public class GazeInput
     private bool dragging = false;
     private float rayCastMaxDistance = 1000;
     private float objectDistance = 2;
+    private float objectDistancemod = 0.0001f;
     private float canvasDistance = 2;
 
 
@@ -113,4 +115,12 @@ public class GazeInput
         }
     }
 
+    public void pushbackObj(float rate)
+    {
+        objectDistance = objectDistance + ((float)Math.Pow(rate+1, 10)) * objectDistancemod;
+    }
+    public void pullbackObj(float rate)
+    {
+        objectDistance = objectDistance - ((float)Math.Pow(rate+1, 10)) * objectDistancemod;
+    }
 }

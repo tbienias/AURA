@@ -37,4 +37,12 @@ public class GazeInputHandler : MonoBehaviour
 
         return true;
     }
+    public void pushbackObj(float rate)
+    {
+        gazeInput.pushbackObj(rate);
+    }
+    public void pullbackObj(float rate)
+    {
+        gazeInput.pullbackObj(rate);
+    }
 }

@@ -45,6 +45,23 @@ namespace HoloToolkit.Unity.InputModule
                 GazeInputHandler gih = GI.GetComponent<GazeInputHandler>();
                 gih.toggleGrab();
             }
+            
+            if(eventData.XboxRightTriggerAxis != 0.0)
+            {
+                Debug.Log(eventData.XboxRightTriggerAxis);
+                GameObject GI = GameObject.Find("GazeInput");
+
+                GazeInputHandler gih = GI.GetComponent<GazeInputHandler>();
+                gih.pushbackObj(eventData.XboxRightTriggerAxis);
+            }
+            if (eventData.XboxLeftTriggerAxis != 0.0)
+            {
+                Debug.Log(eventData.XboxLeftTriggerAxis);
+                GameObject GI = GameObject.Find("GazeInput");
+
+                GazeInputHandler gih = GI.GetComponent<GazeInputHandler>();
+                gih.pullbackObj(eventData.XboxLeftTriggerAxis);
+            }
 
         }
 
