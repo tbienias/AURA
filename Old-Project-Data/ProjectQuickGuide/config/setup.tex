@@ -1,0 +1,45 @@
+\documentclass[a4paper,11pt,oneside]{memoir}
+
+\input{config/chapterstyle.tex}
+\chapterstyle{southall-mod} 
+\setlength{\afterchapskip}{20pt}
+% afterchapternum
+%\semiisopage[10]
+\checkandfixthelayout
+
+ 
+
+\usepackage{lipsum} 
+\usepackage{graphicx}
+\usepackage{float}
+%\usepackage{inconsolata}
+
+\usepackage{color}
+\definecolor{bluekeywords}{rgb}{0.13,0.13,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.9,0,0}
+
+\usepackage{listings}
+\lstset{language=[Sharp]C,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  escapeinside={(*@}{@*)},
+  commentstyle=\color{greencomments},
+  keywordstyle=\color{bluekeywords},
+  stringstyle=\color{redstrings},
+  basicstyle=\ttfamily
+}
+\usepackage{xspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+% http://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[
+backend=biber,
+style=alphabetic,
+bibstyle=alphabetic]{biblatex}
+\addbibresource{bib/biblio.bib}

@@ -1,0 +1,33 @@
+\makeatletter
+%% Thomas Dye's southall chapter style (modified)
+\makechapterstyle{southall-mod}{%
+  \chapterstyle{default} 
+  \setlength{\afterchapskip}{5\baselineskip}
+  \setlength{\beforechapskip}{36pt}%    \headindent
+  \setlength{\midchapskip}{\textwidth}% \rightblock
+  \addtolength{\midchapskip}{-\beforechapskip}
+  \renewcommand*{\chapterheadstart}{\vspace*{2\baselineskip}}
+%%%  \renewcommand*{\chaptitlefont}{\huge\rmfamily\raggedright}
+  \renewcommand*{\chaptitlefont}{\huge\rmfamily\memRTLraggedright}
+  \renewcommand*{\chapnumfont}{\chaptitlefont}
+  \renewcommand*{\printchaptername}{}
+  \renewcommand*{\chapternamenum}{}
+  \renewcommand*{\afterchapternum}{}
+  \renewcommand*{\printchapternum}{%
+    \ifm@mpn@new@schap\else
+      \if@mainmatter
+        \begin{minipage}[t][\baselineskip][b]{\beforechapskip}
+          {\vspace{0pt}\chapnumfont%%%\figureversion{lining}
+                        \thechapter}
+        \end{minipage}%
+      \fi
+    \fi}
+  \renewcommand*{\printchaptertitle}[1]{%
+    \ifm@mpn@new@schap\else
+      \if@mainmatter\hfill\fi
+    \fi\begin{minipage}[t]{\midchapskip}
+      {\vspace{0pt}\chaptitlefont ##1\par}\end{minipage}}
+  \renewcommand*{\afterchaptertitle}{%
+    \par\vspace{\baselineskip}%
+    \hrulefill \par\nobreak\noindent \vskip \afterchapskip}}
+\makeatother

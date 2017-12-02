@@ -1,0 +1,47 @@
+% latex specific configuration, i.e. package inclusion and set up
+\input{config/setup.tex} 
+% content specific configuration, i.e. title
+\input{config/config.tex} 
+
+\usepackage{url}
+ 
+\begin{document}
+
+%\chapterstyle{section} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FRONT MATTER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
+
+\input{frontmatter/titlepage.tex}
+
+\pagestyle{plain} %enable headers and footers again
+\tableofcontents
+%\listoftodos
+%\input{frontmatter/preface.tex}
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN BODY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+
+%\pagenumbering{arabic} %use arabic page numbering in the mainmatter
+\input{content/definition.tex}
+\input{content/unity.tex}
+\input{content/implementation.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BACK MATTER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backmatter
+%bibliography
+%\printbibliography[heading=bibintoc]
+\label{bib:biblio}
+\clearpage
+
+% appendix
+%\input{appendix/anhang.tex}
+
+
+\end{document}
