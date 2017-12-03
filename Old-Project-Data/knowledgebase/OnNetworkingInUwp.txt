@@ -1,0 +1,19 @@
+GOAL:
+Transfer image (and other) data between HoloLens and remote companion programm.
+
+INITIAL IDEA:
+Use some MQ Library for easy and reliable communication that could be extended to more complex protocols. 
+
+PROBLEM:
+Most popular high level messaging librarys (i.e. ZeroMQ) are not awailable for UWP.
+
+FALLBACK ON BUILDINS:
+Basic overview of the networking technologies available for an UWP app
+https://msdn.microsoft.com/en-us/windows/uwp/networking/which-networking-technology
+
+DECISION:
+use Windows.Networking.Sockets
+
+EXAMPLES:
+https://github.com/Microsoft/Windows-universal-samples/tree/master/Samples/StreamSocket
+

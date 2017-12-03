@@ -1,0 +1,126 @@
+\chapter{Implementation}
+In this chapter the current state of the HoloLens application developed by this project is presented. As stated in section \ref{sec:definition} the considered scenario is a stage environment which is to be enriched with virtual overlays.
+
+\section{Concept}
+Because the project revolves around augmented reality both virtual and physical aspects must be considered. For the time being the stage is reduced to a single load bar, and is represented by a (rolling) clothing rack. The bottom plate of which is to be interpreted as the stage floor and the top bar as a (static) load bar. The corresponding virtual components have been kept similarly simple, with a box of approximate dimensions representing the load bar. 
+
+The application under development consists of a single Scene (see section \ref{sec:unity} for a definition). The stage is represented by a corresponding GameObject. While that GameObject does not have any visual representation in the application, it allows us to use the Unity feature of nested positioning to place any stage element relative to the (virtual) stage. Said relative position can be assumed to be known. In the case of our clothing rack it was simply determined by measuring.
+
+To map the virtual reality onto the real world it is now only necessary to synchronize the virtual stage with the physical one. To effect that a defined point on the virtual stage must be aligned with the corresponding point on the physical stage. This must be done in a way that also allows for the orientation to be aligned. In our application that is done via a QR marker utilizing the Vuforia framework.
+
+All other virtual components that are to be positioned relative to the load bar (e.g. the information panel and the poster/virtual scenery) can now be automatically placed by including them as children of the virtual load bar.
+
+\section{Features}
+In this section we present all features implemented so far. This includes those directly required by the given goals, those merely convenient for development work as well as those enhancing the user experience. 
+
+\begin{enumerate}
+\item Detecting a marker (QR-Code) in the real world.
+\item Place a virtual load bar relative to the detected marker.
+\item Three steps positioning of the virtual load bar.
+\item Display information about position and velocity of the load bar.
+\item Interaction via voice commands.
+\item Feedback via TextToSpeech.
+\item Debug log panel when debug mode is enabled.
+\item Show and hide the spatial mesh.
+\end{enumerate}
+
+\section{Voice Commands}
+A big part of any immersive experience is the interaction with the user. Due to the fact that the HoloLens presentations feature gesture recognition so prominently we started out using that for our interaction requirements. As it turns out gesture recognition in not a particularly flexible mode of interaction, mostly because the number of available gestures is severely limited and thus context has to be provided by focusing scene elements which is not particularly comfortable for the user.  A much better (and coincidently easier to implement) method is voice recognition, this allows implementing any desired action simply by adding an other key phrase. As long as one remembers to use sufficiently dissimilar phrases and an English pronunciation this works surprisingly well. Here is an overview of the currently implemented voice triggers:
+\begin{description}
+\item[Show Mesh:] Displays the spatial mesh.
+\item[Hide Mesh:] Hides the spatial mesh.
+\item[Show Log:] Shows the debug log panel. Only available in debug mode. Displays all messages output via the Debug.Log() method. This was included because otherwise the debug log is only available while the HoloLens stays connected to the deploying PC which is slow and cumbersome.
+\item[Hide Log:] Hide the debug log.
+\item[Calibrate:] Start the detection of the marker and thus the placement of the virtual objects.
+\item[Stop calibration]: Stops the calibration (normally not needed because after a successful marker detection the calibration mode is automatically terminated).
+\item[Move Up:] Moves the virtual load bar down in steps of 0.5m.
+\item[Move Down:] Moves the virtual load bar up in steps of 0.5m.
+\end{description}
+
+\section{Audio Feedback}
+All user \emph{inputs} are accompanied by a feedback mechanism, so that the user can be certain that his command was recognized correctly. This is done by acoustical feedback via buildin text to speech components. In addition to those confirmations there is also a feedback if the highest or lowest position of the virtual load bar has been reached.
+
+\chapter{Experiences and Tips}
+
+In this Chapter we are going to share our experiences, known problems and some tips that should help reducing errors and frustration while working with the HoloLens.
+
+\section{Requirements}
+
+\subsection{Accounts and Logins}
+To contribute to this project the following logins are required. The accounts have been specifically created for this project. Access credentials should be provided by the previous/existing project team. 
+\begin{itemize}
+\item Microsoft account
+\item Unity account
+\item Vuforia account
+\item Access to the GitLab group 
+\item Device Portal login information
+\item Project computer login information
+\end{itemize}
+
+\subsection{Software requirements}
+The following requirements are necessary for setting up the development tool-chain and to run the emulator:
+\begin{itemize}
+\item Windows 10 64-bit (required for Emulator and Unity (when building UWP/HoloLens applications))
+\item Hyper-V (required for Emulator)
+\item Visual Studio 2015 update 3
+\item Windows 10 UWP SDK 10.0 (UWP=UAP) (can also be installed via the Visual Studio installer)
+\item Unity for HoloLens (special build based on Unity 5.4.0f3)
+\end{itemize}
+
+The Emulator is not mandatory. We tried to set it up but due to the high hardware requirements and the limitations (e.g. lack of a camera) we ended up not using it.\footnote[3]{\url{https://developer.microsoft.com/de-DE/windows/holographic/install_the_tools}, last visited 27th February 2017}
+
+\section{Pairing and first deployment}
+The first time you deploy an app from Visual Studio to your HoloLens, you will be prompted for a PIN. On the HoloLens, generate a PIN by launching the Settings app, go to Update $>$ For Developers and tap on Pair. A PIN will be displayed on your HoloLens. Paste this PIN in the popped up dialog in Visual Studio. After pairing is complete, tap Done on your HoloLens to dismiss the dialog. The PC is now paired with the HoloLens and you will be able to deploy applications. Repeat these steps for every PC that is used to deploy to your HoloLens.
+
+There are two possible ways to deploy an application on the HoloLens. The deployment over Wi-Fi is more comfortable. especially if you want to debug your application. But we do not recommend it. One reason for that is, that we had a lot of issues due to a mis-configured subnet. If the two devices (PC from which you want to deploy and the HoloLens) are not in the same subnet, it won't work. If this happens there should be an error message like this : „Visual Studio failed deploy to HoloLens: Error DEP6957 : Failed to connect to device“. So if you have problems deploying an application over Wi-Fi or got this error, check the IP-configuration. A second reason is that the connection between the devices is fairly slow. As the size of data which must be transfered is about 100MB, it takes quite some time to deploy an application. In the end we mostly deployed via USB connection. Which is not all that comfortable especially when you want to debug your application (the HoloLens has to stay connected for that), but it is much faster and causes not as many problems.
+\\
+\\
+First deployment via Wi-Fi:
+\begin{enumerate}
+\item Using the top toolbar in Visual Studio, change the target from Debug to Release and from ARM to X86.
+\item Click on the drop-down arrow next to the Device button, and select Remote Device.
+\item Set the Address to the name or IP address of your HoloLens. If you do not know your device IP address, look in Settings $>$ Network \& Internet $>$ Advanced Options or ask Cortana "Hey Cortana, What's my IP address?“ (do not use Cortana, it gives wrong (i.e external) IP address!!)
+\item Leave the Authentication Mode set to Universal.
+\item Click Select
+\item Click Debug $>$ Start Without debugging or press Ctrl + F5. If this is the first time deploying to your device, you will need to Pair the device now.
+\end{enumerate}
+
+\section{Vuforia}
+
+Vuforia is used to detect the marker in the real world. The current marker is a QR-Code which contains the Homepage of Bosch Rexroth\footnote[4]{\url{https://www.boschrexroth.com/de/de/}, last visited 27th February 2017}.
+To use Vuforia in a new application first thing you need to do is go to the Vuforia Homepage and log in with the provided account\footnote[5]{\url{https://www.vuforia.com}, last visited 27th February 2017}. Go to Dev Portal and Log in. Then go to Downloads and download Vuforia for Unity. Integrate the downloaded content in your Unity Project. Next you have to include the license key. To get this key you have to go to Develop and choose the license key in the license Manager. The last thing to do is to download the database in the Target Manager tab with all needed marker. To add a new marker you have to uploaded the picture here. Be sure that the size is correct and matches the size of your printout! Then download the database again and include it to your Unity project.
+
+\section{Device Portal}
+
+The Device Portal is very useful. Read the Using the Windows Device Portal\footnote[6]{\url{https://developer.microsoft.com/de-de/windows/holographic/using_the_windows_device_portal}, last visited 27th February 2017} guide to learn how to set it up and what you can do with it. The login information should be provided. We made the experience that the functionality, especially the live view, depends on the web browser. The best results were achieved with Google Chrome. But the live view still does not work perfectly. The view is delayed about 5 seconds and it crashes very often. Also while streaming or recording, the quality of the holograms on the HoloLens decreases significantly and the power drain increases dramatically.
+
+
+\chapter{Useful Links}
+
+\begin{description}
+
+\item[Microsoft HoloLens:]
+\url{https://www.microsoft.com/microsoft-hololens/en-us}
+(zuletzt abgerufen am: 28.02.2017)
+
+\item[Unity for HoloLens:] 
+\url{https://unity3d.com/de/partners/microsoft/hololens}
+(zuletzt abgerufen am: 28.02.2017)
+
+\item[Developing Vuforia Apps for HoloLens:]
+\url{https://library.vuforia.com/articles/Training/Developing-Vuforia-Apps-for-HoloLens}
+(zuletzt abgerufen am: 28.02.2017)
+
+\item[Microsoft HoloLens Academy:]
+\url{https://developer.microsoft.com/en-us/windows/holographic/academy}
+(zuletzt abgerufen am: 28.02.2017)
+
+\item[Microsoft HoloLens Toolkit for Unity:]
+\url{https://github.com/Microsoft/HoloToolkit-Unity}
+(zuletzt abgerufen am: 28.02.2017)
+
+\item[Using the Windows Device Portal:]
+\url{https://developer.microsoft.com/en-us/windows/holographic/using_the_windows_device_portal}
+(zuletzt abgerufen am: 28.02.2017)
+
+\end{description}
