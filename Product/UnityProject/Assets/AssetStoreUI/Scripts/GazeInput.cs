@@ -88,7 +88,12 @@ public class GazeInput
 
     public void debugWindowRotation(GameObject debugWindow)
     {
-        debugWindow.transform.rotation = Quaternion.LookRotation(debugWindow.transform.position - camera.transform.position);
+        if (debugWindow.transform.position - camera.transform.position != Vector3.zero)
+        {
+            // Do the rotation here
+            debugWindow.transform.rotation = Quaternion.LookRotation(debugWindow.transform.position - camera.transform.position);
+        }
+        
     }
 
     public void repositionDebugWindow(GameObject debugWindow)
