@@ -13,7 +13,7 @@ public class GazeInputHandler : MonoBehaviour
 	void Start () {
         Camera camera = GameObject.Find("MixedRealityCamera").GetComponent<Camera>();
 	    uiCanvas = GameObject.Find("UiCanvas").GetComponent<Canvas>();
-        debugWindow = GameObject.Find("DebugEventLog");
+        debugWindow = GameObject.Find("Console");
 	    gazeInput = GazeInput.Instance;
         gazeInput.setCamera(camera);
 	}

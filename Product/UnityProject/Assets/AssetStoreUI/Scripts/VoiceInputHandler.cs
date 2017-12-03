@@ -15,7 +15,7 @@ public class VoiceInputHandler : MonoBehaviour, ISpeechHandler
 	void Start () {
 		gazeInput = GazeInput.Instance;
 	    uiCanvas = GameObject.Find("UiCanvas").GetComponent<Canvas>();
-	    debugWindow = GameObject.Find("DebugEventLog");
+	    debugWindow = GameObject.Find("Console");
 	}
 	
 	// Update is called once per frame
