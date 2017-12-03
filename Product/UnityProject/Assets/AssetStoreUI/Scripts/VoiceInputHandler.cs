@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class VoiceInputHandler : MonoBehaviour, ISpeechHandler
 {
-    public CustomUiCaster Caster;
     private GazeInput gazeInput;
     private Canvas uiCanvas;
     private GameObject debugWindow;

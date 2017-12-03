@@ -36,58 +36,6 @@ namespace HoloToolkit.Unity.InputModule
         public virtual void OnXboxAxisUpdate(XboxControllerEventData eventData)
         {
 
-            GameObject GI = GameObject.Find("GazeInput");
-
-            GazeInputHandler gih = GI.GetComponent<GazeInputHandler>();
-            if (eventData.XboxA_Down)
-            {
-                gih.toggleGrab();
-            }
-            
-            if(eventData.XboxRightTriggerAxis != 0.0)
-            {
-                gih.pushbackObj(eventData.XboxRightTriggerAxis);
-            }
-            if (eventData.XboxLeftTriggerAxis != 0.0)
-            {
-                
-                gih.pullbackObj(eventData.XboxLeftTriggerAxis);
-            }
-
-
-            //ROTATE STUFF
-            if (eventData.XboxLeftStickVerticalAxis != 0)
-            {
-                gih.rotateX(eventData.XboxLeftStickVerticalAxis);
-            }
-            else
-            {
-                gih.rotateX(0f);
-            }
-            if (eventData.XboxLeftStickHorizontalAxis != 0)
-            {
-                gih.rotateY(eventData.XboxLeftStickHorizontalAxis * -1);
-            }
-            else
-            {
-                gih.rotateY(0f);
-            }
-
-            if (eventData.XboxLeftBumper_Pressed)
-            {
-                gih.rotateZ(1f);
-            }
-            
-            if (eventData.XboxRightBumper_Pressed)
-            {
-                gih.rotateZ(-1f);
-            }
-            if(eventData.XboxLeftBumper_Pressed ==false && eventData.XboxRightBumper_Pressed == false)
-            {
-                gih.rotateZ(0f);
-            }
-
-
         }
 
         protected static bool OnButton_Up(XboxControllerMappingTypes buttonType, XboxControllerEventData eventData)

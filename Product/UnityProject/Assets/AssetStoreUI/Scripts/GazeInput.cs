@@ -7,7 +7,10 @@ public class GazeInput
 {
     private static GazeInput instance;
 
-    private GazeInput() { }
+    private GazeInput()
+    {
+        camera = GameObject.Find("MixedRealityCamera").GetComponent<Camera>();
+    }
 
     public static GazeInput Instance
     {
@@ -101,10 +104,6 @@ public class GazeInput
         debugWindow.transform.position = (camera.transform.position + Camera.main.transform.forward * canvasDistance);
     }
 
-    public void setCamera(Camera cam)
-    {
-        camera = cam;
-    }
     public void dragPlease(GameObject obj)
     {
         if (!dragging)

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -280,7 +280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a2187f8f366d449a1fbee684a1cb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Caster: {fileID: 431938281}
 --- !u!4 &153996520
 Transform:
   m_ObjectHideFlags: 0
@@ -752,8 +751,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 943659331}
-  - component: {fileID: 943659332}
   - component: {fileID: 943659333}
+  - component: {fileID: 943659332}
   m_Layer: 0
   m_Name: XBOX
   m_TagString: Untagged
@@ -782,7 +781,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 943659330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03fe91f227bf8af44afc939d2303cbb0, type: 3}
+  m_Script: {fileID: 11500000, guid: 752afd3479a737645bf388ee0c839c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsGlobalListener: 1
@@ -2644,3 +2643,43 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2023575691}
+--- !u!1 &2024672617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2024672619}
+  - component: {fileID: 2024672618}
+  m_Layer: 0
+  m_Name: CustomUiInput
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2024672618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2024672617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9161a207c76847a788db912e99f04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2024672619
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2024672617}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.84187794, y: 2.9900978, z: 5.6696863}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

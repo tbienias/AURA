@@ -15,7 +15,6 @@ public class GazeInputHandler : MonoBehaviour
 	    uiCanvas = GameObject.Find("UiCanvas").GetComponent<Canvas>();
         debugWindow = GameObject.Find("Console");
 	    gazeInput = GazeInput.Instance;
-        gazeInput.setCamera(camera);
 	}
 	
 	// Update is called once per frame
@@ -25,36 +24,4 @@ public class GazeInputHandler : MonoBehaviour
         gazeInput.debugWindowRotation(debugWindow);
 	}
 
-    public bool dragthispls(GameObject objToDrag)
-    {
-        gazeInput.dragPlease(objToDrag);
-            
-        return true;
-    }
-    public bool toggleGrab()
-    {
-        gazeInput.toggleGrab();
-
-        return true;
-    }
-    public void pushbackObj(float rate)
-    {
-        gazeInput.pushbackObj(rate);
-    }
-    public void pullbackObj(float rate)
-    {
-        gazeInput.pullbackObj(rate);
-    }
-    public void rotateX(float rate)
-    {
-        gazeInput.rotateX(rate);
-    }
-    public void rotateY(float rate)
-    {
-        gazeInput.rotateY(rate);
-    }
-    public void rotateZ(float rate)
-    {
-        gazeInput.rotateZ(rate);
-    }
 }

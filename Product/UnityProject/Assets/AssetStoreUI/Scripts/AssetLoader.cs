@@ -127,10 +127,8 @@ public class AssetLoader : MonoBehaviour
 
 
             Debug.Log("Spawned ");
-            GameObject GI = GameObject.Find("GazeInput");
 
-            GazeInputHandler gih = GI.GetComponent<GazeInputHandler>();
-            gih.dragthispls(t);
+            GazeInput.Instance.dragPlease(t);
         }   
         else
         {
