@@ -557,7 +557,7 @@ PlayerSettings:
       EnterpriseAuthentication: False
       HumanInterfaceDevice: True
       InputInjectionBrokered: False
-      InternetClient: False
+      InternetClient: True
       InternetClientServer: False
       Location: True
       Microphone: True

@@ -1,0 +1,2 @@
+D:\h_da\MasterII\HoloLens\HoloLens\Product\UnityProject\UWP\GeneratedProjects\UWP\Assembly-CSharp\Assembly-CSharp.csproj;x86
+D:\h_da\MasterII\HoloLens\HoloLens\Product\UnityProject\UWP\UnityProject\UnityProject.csproj;x86
