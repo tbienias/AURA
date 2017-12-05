@@ -11,7 +11,7 @@ GeneratedProjects\UWP\Assembly-CSharp\project.json: 4FCF72A4D5EDB37E24C206A7BCFE
 UnityProject\App.cs: D8E8A53E9893387EEE134A754F88AE98
 UnityProject\Package.appxmanifest: 4A258C416D86CF2676A2E191A1BF43BC
 UnityProject\project.json: 1D02BC64BAC0D041019673A1C4C51737
-UnityProject\UnityProject.csproj: 04109B6322572D370FCDF1245154E7B7
+UnityProject\UnityProject.csproj: modified
 UnityProject\UnityProject.csproj.user: modified
 UnityProject\Assets\SplashScreen.scale-200.png: 60618416282ED104FD1473935716045D
 UnityProject\Assets\Square150x150Logo.scale-200.png: E02834B4A5DFB97FF8E212C1CACBB084

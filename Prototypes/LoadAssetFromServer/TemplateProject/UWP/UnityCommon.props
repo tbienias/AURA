@@ -1,0 +1,9 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <UnityWSASolutionName>TemplateProject</UnityWSASolutionName>
+        <UnityWSASolutionDir>D:\h_da\MasterII\HoloLens\HoloLens\Prototypes\LoadAssetFromServer\TemplateProject\UWP\</UnityWSASolutionDir>
+        <UnityProjectDir>D:\h_da\MasterII\HoloLens\HoloLens\Prototypes\LoadAssetFromServer\TemplateProject\</UnityProjectDir>
+        <UnityWSAPlayerDir>D:\Programme\Unity\Editor\Data\PlaybackEngines\MetroSupport\</UnityWSAPlayerDir>
+        <UnityWSAToolsDir>$(UnityWSASolutionDir)Unity\Tools\</UnityWSAToolsDir>
+    </PropertyGroup>
+</Project>
