@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import string,cgi,time
+import argparse
 import json
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -59,11 +60,22 @@ class MyHandler(BaseHTTPRequestHandler):
 
 
 def main():
-	#print(json.dumps({"AssetBundleList": GetAssetListing()}))
-	#return
+	parser = argparse.ArgumentParser()
+	parser.add_argument("--bind", help="Set the IP from which the server waits for incoming requests")
+	args = parser.parse_args();
+	
+	ipAddr = ""
+	if args.bind:
+		ipAddr = args.bind
+	else:
+		ipAddr = "localhost"
+		print( "Warning! You didn specify an IP to bind the HTTP-Server on." )
+		print( "This could potentially lead to an unreachable Server, if localhost isn't mapped to the preferred IPv4-Address." )
+		print( "The bound IP-Address is in most cases the same address which gets queried for Assets.\n" )
+	
 	try:
-		httpd = HTTPServer(('127.0.0.1', 80), MyHandler)
-		print('started assetserver...')
+		httpd = HTTPServer((ipAddr, 80), MyHandler)
+		print('AssetServer started on %s. Serving...' % (ipAddr))
 		httpd.serve_forever()
 		
 	except KeyboardInterrupt:
