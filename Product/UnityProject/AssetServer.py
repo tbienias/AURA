@@ -2,6 +2,7 @@
 
 import string,cgi,time
 import json
+import sys
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from os import curdir, sep, listdir
@@ -61,9 +62,19 @@ class MyHandler(BaseHTTPRequestHandler):
 def main():
 	#print(json.dumps({"AssetBundleList": GetAssetListing()}))
 	#return
+
+	# default address and port
+	ip = '127.0.0.1'
+	port = 80
+
+	# python3 AssetServer.py <IP-ADDRESS> <PORT>
+	if(len(sys.argv) == 3):
+		ip = sys.argv[1]
+		port = int(sys.argv[2])
+
 	try:
-		httpd = HTTPServer(('127.0.0.1', 80), MyHandler)
-		print('started assetserver...')
+		httpd = HTTPServer((ip, port), MyHandler)
+		print('started assetserver on %s:%i' %(ip, port))
 		httpd.serve_forever()
 		
 	except KeyboardInterrupt:
