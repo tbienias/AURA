@@ -14,7 +14,15 @@ public class AssetManager : MonoBehaviour
     public event AssetListLoadedFunc OnAssetListLoaded;
 
     private WWW _server;
-    private AssetBundleListing _listing;
+
+    // Map equivalent to hold gameobject references that are already loaded for caching purposes
+    private Dictionary<string, GameObject> _gameObjects;
+
+
+    private void Start()
+    {
+        _gameObjects = new Dictionary<string, GameObject>();
+    }
 
     void CheckIfServerIsConnected()
     {
@@ -34,13 +42,26 @@ public class AssetManager : MonoBehaviour
     public void RequestAsset(string assetURI, AssetLoadedFunc callBack)
     {
         CheckIfServerIsConnected();
+
+        // Check if asset is already loaded, if it is, just call the callback immediately
+        if(_gameObjects.ContainsKey(assetURI))
+        {
+            callBack(_gameObjects[assetURI]);
+            if(OnAssetLoaded != null)
+            {
+                OnAssetLoaded(_gameObjects[assetURI]);
+            }
+            return;
+        }
+
+        // Start the download process
         Debug.Log(string.Format("Asset Manager: Requesting asset from server: {0}...", assetURI));
         WWW assetRequest = new WWW(string.Format("{0}/{1}", _server.url, assetURI));
-        StartCoroutine(RequestAsset(assetRequest, callBack));
+        StartCoroutine(RequestAsset(assetRequest, callBack, assetURI));
     }
 
-    IEnumerator RequestAsset(WWW request, AssetLoadedFunc callBack)
-    {                
+    IEnumerator RequestAsset(WWW request, AssetLoadedFunc callBack, string assetURI)
+    {
         // Ensure server download is finished, before continuing
         yield return request;
         Debug.Log(string.Format("Asset Manager: Asset download completed."));
@@ -51,6 +72,9 @@ public class AssetManager : MonoBehaviour
         // Build game object from request bundle
         AssetBundle bundle = request.assetBundle;
         GameObject gameObject = bundle.LoadAsset(assetName) as GameObject;
+
+        // Add gameobject to caching map
+        _gameObjects.Add(assetURI, gameObject);
 
         // Dispatch event
         callBack(gameObject);
@@ -66,10 +90,10 @@ public class AssetManager : MonoBehaviour
         yield return server;
         Debug.Log("Asset Manager: Asset list finished downloading.");
 
-        _listing = JsonUtility.FromJson<AssetBundleListing>(server.text);
+        AssetBundleListing listing = JsonUtility.FromJson<AssetBundleListing>(server.text);
 
         List<string> assetList = new List<string>();
-        foreach (var bundle in _listing.AssetBundleList)
+        foreach (var bundle in listing.AssetBundleList)
         {
             assetList.Add(bundle.BundleName);
         }
