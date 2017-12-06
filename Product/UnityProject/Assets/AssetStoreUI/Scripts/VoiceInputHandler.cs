@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class VoiceInputHandler : MonoBehaviour, ISpeechHandler
 {
-    public CustomUiCaster Caster;
     private GazeInput gazeInput;
     private Canvas uiCanvas;
     private GameObject debugWindow;
@@ -15,7 +14,7 @@ public class VoiceInputHandler : MonoBehaviour, ISpeechHandler
 	void Start () {
 		gazeInput = GazeInput.Instance;
 	    uiCanvas = GameObject.Find("UiCanvas").GetComponent<Canvas>();
-	    debugWindow = GameObject.Find("DebugEventLog");
+	    debugWindow = GameObject.Find("Console");
 	}
 	
 	// Update is called once per frame

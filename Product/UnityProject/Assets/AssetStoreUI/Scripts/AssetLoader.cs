@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,13 @@ public class AssetLoader : MonoBehaviour
     
     public GameObject buttonPrefab;
     public GameObject buttonContainer;
+    public uint openPage = 0;
+
+
+    public List<string> assetList;
+    public AssetManager _mgr;
+
+    public Boolean listLoadprogress;
 
     private void Awake()
     {
@@ -17,7 +25,13 @@ public class AssetLoader : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    List<string> assets = new List<string>{"Button1", "Button2"};
+        _mgr = GameObject.Find("Asset Manager").GetComponent<AssetManager>();
+
+	    listLoadprogress = false;
+	    _mgr.RequestAssetList(getAssetList);
+
+        
+        List<string> assets = new List<string>{"Button1", "Button2"};
 	    foreach (string asset in assets)
 	    {
 	        createNewButton(asset);
@@ -26,12 +40,30 @@ public class AssetLoader : MonoBehaviour
 
     private void loadAssetFromServer(string assetName)
     {
+
+        _mgr.RequestAsset(assetName, assetloadfunc);
         Debug.Log(assetName);
     }
-
-    public void showAssets(List<string> assets)
+    public void clearAssetContainer()
     {
-        foreach (string asset in assets)
+        Button[] buttons = buttonContainer.GetComponentsInChildren<Button>();
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].onClick.RemoveAllListeners();
+            Destroy(buttons[i].gameObject);
+        }
+    }
+    public void showAssets()
+    {
+
+        clearAssetContainer();
+        uint lastIndexOfList = openPage * 10 + 9;
+        if (openPage * 10 + 9 > assetList.Count)
+        {
+            lastIndexOfList = (uint)assetList.Count ;
+        }
+        List<string> partAssetList = assetList.GetRange((int)openPage * 10, (int)lastIndexOfList);
+        foreach (string asset in partAssetList)
         {
             createNewButton(asset);
         }
@@ -47,24 +79,60 @@ public class AssetLoader : MonoBehaviour
 
     public void nextPage()
     {
-        clearAssetContainer();
-        showAssets(new List<string>(){"a", "b"});
-    }
-
-    private void clearAssetContainer()
-    {
-        Button[] buttons = buttonContainer.GetComponentsInChildren<Button>();
-        for (int i = 0; i < buttons.Length; i++)
+        //clearAssetContainer();
+        //showAssets(new List<string>(){"a", "b"});
+        if (assetList.Count / 10 == openPage)
         {
-            buttons[i].onClick.RemoveAllListeners();
-            Destroy(buttons[i].gameObject);
+            Debug.Log("Already highest page!");
+        }
+        else
+        {
+            openPage++;    
         }
     }
+
+    
 
     public void prevPage()
     {
         clearAssetContainer();
-        showAssets(new List<string>() { "a", "b", "c", "d" });
+        showAssets();
+        if (openPage == 0)
+        {
+            Debug.Log("First Page already open!");
+        }
+        else
+        {
+            openPage--;
+        }
+           
     }
 
+    public void getAssetList(List<string> list)
+    {
+        assetList = list;   
+        listLoadprogress = true;
+        showAssets();
+    }
+
+    public void assetloadfunc(GameObject go)
+    {
+        if (go != null)
+        {
+            GameObject cam = GameObject.Find("MixedRealityCamera");
+            go.AddComponent<MeshCollider>();
+            GameObject ngo = Instantiate(go, (cam.transform.position + Camera.main.transform.forward * 2), cam.transform.rotation);
+            GameObject t = ngo.transform.GetChild(0).gameObject;
+            t.AddComponent<MeshCollider>();
+
+
+            Debug.Log("Spawned ");
+
+            GazeInput.Instance.dragPlease(t);
+        }   
+        else
+        {
+            Debug.Log("Game Object Null!");
+        }
+    }
 }

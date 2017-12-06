@@ -16,6 +16,7 @@ namespace HoloToolkit.Unity.InputModule
 
         protected virtual void Start()
         {
+            
             if (IsGlobalListener)
             {
                 InputManager.Instance.AddGlobalListener(gameObject);
@@ -34,10 +35,12 @@ namespace HoloToolkit.Unity.InputModule
 
         public virtual void OnXboxAxisUpdate(XboxControllerEventData eventData)
         {
+
         }
 
         protected static bool OnButton_Up(XboxControllerMappingTypes buttonType, XboxControllerEventData eventData)
         {
+
             switch (buttonType)
             {
                 case XboxControllerMappingTypes.None:
