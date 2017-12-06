@@ -17,7 +17,7 @@ public class XBOXCustomHandler : XboxControllerHandlerBase
     public override void OnXboxAxisUpdate(XboxControllerEventData eventData)
     {
         GazeInput GI = GazeInput.Instance;
-        
+
         // Grab with A Button
         if (eventData.XboxA_Down)
         {
