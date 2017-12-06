@@ -30,7 +30,7 @@ public class GazeInput
     private float rotatey = 0.0f;
     private float rotatez = 0.0f;
 
-    private float rotatemod = 1f;
+    private float rotatemod = 5f;
 
     public void grabObject()
     {
