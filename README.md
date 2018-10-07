@@ -4,7 +4,7 @@
 ### Clone the repository
 
 ```bash
-git clone --recurse-submodules -j8 https://gitlab.com/HDA_MPSE_HoloLens/HoloLens.git
+git clone --recurse-submodules -j8 https://gitlab.com/project-aura/aura.git
 ```
 
 Adding the `--recurse-submodules` flag checks out the dependency submodules as well.
