@@ -1,5 +1,20 @@
 # AURA
 
+**This project is discontinued due to time reasons and hardware availability.**
+
+AURA is a Mixed Reality Project implemented with Unity and running on the Microsoft HoloLens. It aims to enable the user to enrich the real world with 3D geometry.
+
+## Product Video
+
+[<img src="https://img.youtube.com/vi/4JplB5ZMiek/maxresdefault.jpg" width="75%">](https://youtu.be/4JplB5ZMiek)
+
+## Reports 
+
+[Winter 2017/2018](./report_ws1718.pdf)
+
+[Summer 2018](./report_ss18.pdf)
+
+
 ## Set up development environment
 ### Clone the repository
 
@@ -24,4 +39,6 @@ cd AURA && mklink /D Assets\HoloToolkit ..\MixedRealityToolkit-Unity\Assets\Holo
 ### Apply the MixedRealityToolkit project settings
 Don't forget to Check the "Use Toolkit-specific InputManager axes" box, so that the XboxController work.
 
-![MRTK project settings](/uploads/1ffada9b98338e01f43c23b7f9bd60ce/Unity_2018-05-17_20-14-38.png)
+## License
+
+LGPL 2.1
